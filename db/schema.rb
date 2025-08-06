@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_06_073740) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_06_094321) do
   create_table "currencies", force: :cascade do |t|
     t.string "code"
     t.string "description"
@@ -28,6 +28,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_06_073740) do
     t.index ["to_currency_id"], name: "index_currency_exchange_types_on_to_currency_id"
   end
 
+  create_table "exchange_rates", force: :cascade do |t|
+    t.integer "currency_exchange_type_id", null: false
+    t.decimal "last_price", precision: 30, scale: 18
+    t.decimal "bid_price", precision: 30, scale: 18
+    t.decimal "ask_price", precision: 30, scale: 18
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["currency_exchange_type_id"], name: "index_exchange_rates_on_currency_exchange_type_id"
+  end
+
   add_foreign_key "currency_exchange_types", "currencies", column: "from_currency_id"
   add_foreign_key "currency_exchange_types", "currencies", column: "to_currency_id"
+  add_foreign_key "exchange_rates", "currency_exchange_types"
 end
