@@ -10,11 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_06_070857) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_06_073740) do
   create_table "currencies", force: :cascade do |t|
     t.string "code"
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "currency_exchange_types", force: :cascade do |t|
+    t.integer "from_currency_id", null: false
+    t.integer "to_currency_id", null: false
+    t.string "exchange_rate_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["from_currency_id"], name: "index_currency_exchange_types_on_from_currency_id"
+    t.index ["to_currency_id"], name: "index_currency_exchange_types_on_to_currency_id"
+  end
+
+  add_foreign_key "currency_exchange_types", "currencies", column: "from_currency_id"
+  add_foreign_key "currency_exchange_types", "currencies", column: "to_currency_id"
 end
