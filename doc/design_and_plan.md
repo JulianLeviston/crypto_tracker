@@ -11,7 +11,7 @@ Acceptance criteria:
 1. √ Create a Currency model and describe it (code, description) + seed
 2. √ Create an CurrencyExchangeType model and describe it (from_currency, to_currency, exchange_rate_url) + seed
 3. √ Create an ExchangeRate model and describe it (created_at, currency_exchange_type, last_price, bid_price, ask_price)
-4. Create an ExchangeRateRequest model and describe it (created_at, currency_exchange_type, nullable exchange_rate, failure_reason (default ""), status (an enum of pending, in_progress, complete with pending as default)). If complete and exchange rate is missing, it failed with reason (if present).
+4. √ Create an ExchangeRateRequest model and describe it (created_at, currency_exchange_type, nullable exchange_rate, failure_reason (default ""), status (an enum of pending, in_progress, complete with pending as default)). If completed and exchange rate is missing, it failed with reason (if present).
 5. Create an ExchangeRate service with methods to both create an exchange rate request, and also to process one by fetching & parsing exchange rate data and and/or handling the errors, updating the relevant record
 6. Create tests around the service
 7. Create a job that will process exchange rates by using the service and rate limiting logic
