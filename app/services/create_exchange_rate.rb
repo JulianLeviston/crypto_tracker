@@ -10,6 +10,6 @@ class CreateExchangeRate
   end
 
   def call
-    ExchangeRate.create!(price_properties)
+    ExchangeRate.create!(@exchange_rate_attributes)
   end
 end
