@@ -1,0 +1,42 @@
+<h1>Current Exchange Rates</h1>
+
+<p>
+  <%= button_to "Fetch Exchange Rates", { action: "fetch" }, method: "get" %>
+  <%= button_to "Fetch Exchange Rates Concurrently", { action: "concurrent_fetch" }, method: "get" %>
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>CODE</th>
+      <th>At</th>
+      <th>Last Price</th>
+      <th>Ask Price</th>
+      <th>Bid Price</th>
+  </thead>
+  <tbody>
+    <% @currency_exchange_types.each do |exchange_type| %>
+      <tr>
+        <th><%= exchange_type.from_currency.code %><%= exchange_type.to_currency.code %></th>
+        <% if exchange_type.current_exchange_rate.present? %>
+          <td>
+            <%= exchange_type.current_exchange_rate.created_at.in_time_zone.strftime("%B %d, %Y %I:%M.%S %p") %>
+          </td>
+          <td>
+            <%= exchange_type.current_exchange_rate.last_price %>
+          </td>
+          <td>
+            <%= exchange_type.current_exchange_rate.ask_price %>
+          </td>
+          <td>
+            <%= exchange_type.current_exchange_rate.bid_price %>
+          </td>
+        <% else %>
+          <td colspan="5">
+            No records
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
