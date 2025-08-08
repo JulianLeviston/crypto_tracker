@@ -4,6 +4,22 @@ class ExchangeRatesController < ApplicationController
     @currency_exchange_types = CurrencyExchangeType.includes(:current_exchange_rate, :from_currency, :to_currency).all
   end
 
+  def history
+    @from_code = params[:from_currency_code]
+    @to_code = params[:to_currency_code]
+    @exchange_rates = ExchangeRate
+      # manual joins because aliasing wasn't working when using AR joins
+      .joins(:currency_exchange_type)
+      .joins(
+        "INNER JOIN currencies AS from_currencies ON from_currencies.id = currency_exchange_types.from_currency_id"
+      )
+      .joins(
+        "INNER JOIN currencies AS to_currencies ON to_currencies.id = currency_exchange_types.to_currency_id"
+      )
+      .where(from_currencies: { code: @from_code }, to_currencies: { code: @to_code })
+      .order(created_at: :desc)
+  end
+
   def fetch
     # Make a request record for each exchange type, then feed them to ProcessExchangeRateRequest to fulfil
     # Making this async (via jobs) is fairly easy because it's been modularly designed.

@@ -13,23 +13,32 @@
       <th>Last Price</th>
       <th>Ask Price</th>
       <th>Bid Price</th>
+      <th>&nbsp;</th>
   </thead>
   <tbody>
     <% @currency_exchange_types.each do |exchange_type| %>
       <tr>
         <th><%= exchange_type.from_currency.code %><%= exchange_type.to_currency.code %></th>
         <% if exchange_type.current_exchange_rate.present? %>
+          <% exchange_rate = exchange_type.current_exchange_rate %>
           <td>
-            <%= exchange_type.current_exchange_rate.created_at.in_time_zone.strftime("%B %d, %Y %I:%M.%S %p") %>
+            <%= exchange_rate.created_at.in_time_zone.strftime("%B %d, %Y %I:%M.%S %p") %>
           </td>
           <td>
-            <%= exchange_type.current_exchange_rate.last_price %>
+            <%= exchange_rate.last_price %>
           </td>
           <td>
-            <%= exchange_type.current_exchange_rate.ask_price %>
+            <%= exchange_rate.ask_price %>
           </td>
           <td>
-            <%= exchange_type.current_exchange_rate.bid_price %>
+            <%= exchange_rate.bid_price %>
+          </td>
+          <td>
+            <%= link_to "History",
+                  action: "history",
+                  from_currency_code: exchange_type.from_currency.code,
+                  to_currency_code: exchange_type.to_currency.code
+            %>
           </td>
         <% else %>
           <td colspan="5">

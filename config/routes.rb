@@ -11,5 +11,6 @@ Rails.application.routes.draw do
 
   get "fetch", to: "exchange_rates#fetch"
   get "concurrent_fetch", to: "exchange_rates#concurrent_fetch"
+  get "history/:from_currency_code/:to_currency_code", to: "exchange_rates#history"
   root "exchange_rates#index"
 end

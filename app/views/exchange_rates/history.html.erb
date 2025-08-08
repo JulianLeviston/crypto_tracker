@@ -1,0 +1,35 @@
+<h1>
+  History of <%=@from_code%><%=@to_code%> Fetches (<%= @exchange_rates.length %>)
+</h1>
+
+<p>
+  <%= link_to "Back to current exchange rates", action: :index %>
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>At</th>
+      <th>Last Price</th>
+      <th>Ask Price</th>
+      <th>Bid Price</th>
+  </thead>
+  <tbody>
+    <% @exchange_rates.each do |exchange_rate| %>
+      <tr>
+        <td>
+          <%= exchange_rate.created_at.in_time_zone.strftime("%B %d, %Y %I:%M.%S %p") %>
+        </td>
+        <td>
+          <%= exchange_rate.last_price %>
+        </td>
+        <td>
+          <%= exchange_rate.ask_price %>
+        </td>
+        <td>
+          <%= exchange_rate.bid_price %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
