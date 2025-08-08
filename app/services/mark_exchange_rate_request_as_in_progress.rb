@@ -1,6 +1,6 @@
 # Semantic service for indicating to the system that an exchange rate
 # request has commenced
-module MarkExchangeRateRequestAsInProgress
+class MarkExchangeRateRequestAsInProgress
   attr_reader :exchange_rate_request
 
   def initialize(exchange_rate_request)

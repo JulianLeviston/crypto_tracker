@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_06_114658) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_07_154250) do
   create_table "currencies", force: :cascade do |t|
     t.string "code"
     t.string "description"
@@ -30,7 +30,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_06_114658) do
 
   create_table "exchange_rate_requests", force: :cascade do |t|
     t.integer "currency_exchange_type_id", null: false
-    t.integer "exchange_rate_id", null: false
+    t.integer "exchange_rate_id"
     t.string "failure_reason"
     t.integer "status", default: 0
     t.datetime "created_at", null: false

@@ -9,8 +9,8 @@ class MarkExchangeRateRequestAsFailed
   end
 
   def call
-      @exchange_rate_request.update(
-        :status, :completed,
+      @exchange_rate_request.update!(
+        status: :completed,
         failure_reason: @failure_reason
       )
   end

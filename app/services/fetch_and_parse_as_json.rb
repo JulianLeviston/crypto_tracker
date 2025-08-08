@@ -5,7 +5,7 @@
 # methods do respectively, as well as using some of their exception classes for
 # checking against when things go wrong.
 # These can all be overridden as desired.
-module FetchAndParseAsJSON
+class FetchAndParseAsJSON
   attr_reader :url, :http_fetch_lambda, :connection_failure_error, :parse_json_lambda, :json_parse_error
 
   def initialize(

@@ -10,7 +10,7 @@ class MarkExchangeRateRequestAsSuccessful
   end
 
   def call
-      @exchange_rate_request.update(
+      @exchange_rate_request.update!(
         status: :completed,
         exchange_rate: @exchange_rate
       )

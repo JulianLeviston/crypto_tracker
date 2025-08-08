@@ -1,13 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  exchange_type: one
+  currency_exchange_type: one
   last_price: 9.99
   bid_price: 9.99
   ask_price: 9.99
 
 two:
-  exchange_type: two
+  currency_exchange_type: two
   last_price: 9.99
   bid_price: 9.99
   ask_price: 9.99

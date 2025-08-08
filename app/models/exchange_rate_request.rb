@@ -3,9 +3,9 @@
 class ExchangeRateRequest < ApplicationRecord
   enum :status, { pending: 0, in_progress: 1, completed: 2 }
   belongs_to :currency_exchange_type
-  belongs_to :exchange_rate
+  belongs_to :exchange_rate, optional: true
 
   def url
-    currencty_exchange_type.exchange_rate_url
+    currency_exchange_type.exchange_rate_url
   end
 end
