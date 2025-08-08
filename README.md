@@ -16,7 +16,7 @@ Once these things are in place, you can open this repo in vscode and it will ask
 
 ## Starting the application
 
-Once the container has been started as above, you can open a terminal in VS Code. There is a standard database already present that is using sqlite (via the storage directory) that has data in it. If you want to start fresh, you can run `bin/rails db:drop && bin/rails db:create` and `bin/rails db:seed` to set up the database initially with currencies and exchange rate types again, but it might be easiest to just proceed with the existing database.
+Once the container has been started as above, you can open a terminal in VS Code. There is a standard database already present that is using sqlite (via the storage directory) that has data in it. If you want to start fresh, you can run `bin/rails db:drop && bin/rails db:create` and `bin/rails db:migrate && bin/rails db:seed` to set up the database initially with currencies and exchange rate types again, but it might be easiest to just proceed with the existing database.
 
 Then, to start the server, run the command `bin/rails s` to start the server as usual. By default, as always, this will be on port 3000 which is opened from within the container, so you should be able to visit http://localhost:3000 in your browser on your local machine and the app will be working and served to you from there.
 
