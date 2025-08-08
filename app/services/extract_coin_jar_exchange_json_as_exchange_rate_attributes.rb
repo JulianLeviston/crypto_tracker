@@ -10,11 +10,15 @@ class ExtractCoinJarExchangeJSONAsExchangeRateAttributes
 
   def call
     raise "Missing keys in JSON API payload. Need #{self.class.human_required_keys} present." if required_keys_missing_from_hash?
-    {
+    return_hash = {
       ask_price: @coin_jar_exchange_json_hash["ask"],
       last_price: @coin_jar_exchange_json_hash["last"],
       bid_price: @coin_jar_exchange_json_hash["bid"]
     }
+    if @coin_jar_exchange_json_hash["current_time"]
+      return_hash[:created_at] = @coin_jar_exchange_json_hash["current_time"]
+    end
+    return_hash
   end
 
   def required_keys_missing_from_hash?

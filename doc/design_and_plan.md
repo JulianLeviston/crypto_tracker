@@ -2,8 +2,8 @@
 
 Acceptance criteria:
 * Users can see the latest fetched prices on the main page, activate a fetch button, and follow links to pages that show the reverse history of exchange rates (prices) for an exchange pair (aka CurrencyExchangeType)
-* Configuration for adding, removing, changing currencies (with a UI if time)
-* Requests and Responses should be decoupled for future expansion, not overloading services etc.
+* Configuration for adding, removing, changing currencies (with a UI if time) (currently via seeds)
+* Requests and Responses should be decoupled for future expansion, concurrency, not overloading services (APIs) etc.
 
 ## Tasks
 
@@ -16,8 +16,8 @@ Acceptance criteria:
 6. √ Create tests around the service(s)
 7. √ Build the front page UI that has a title, fetch button (which will fetch all currencies), and list of recent prices (datestamped). Use messaging to indicate when new fetches are still in progress. note: elected to do sync fetches and defer jobs to later, if at all
 8. √ Build the exchange rate history page that links off each exchange rate from the main page that shows the reverse chronological history of successful fetches.
-9. Write tests to ensure correct functionality (one integration/acceptance test per relevant acceptance criteria)
-10. Ensure error reporting happens in UI and/or logging when there are errors fetching.
-11. Optionally, create a job that will process exchange rates by using service(s) and (possibly) rate limiting logic
-12. Optionally, add in a way to see the error fetches and reasons.
+9. √ Write tests to ensure correct functionality (one integration/acceptance test per relevant acceptance criteria)
+10. √ Ensure error reporting happens in UI and/or logging when there are errors fetching.
+11. x Optionally, create a job that will process exchange rates by using service(s) and (possibly) rate limiting logic
+12. x Optionally, add in a way to see the error fetches and reasons.
 

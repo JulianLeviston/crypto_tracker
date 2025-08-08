@@ -9,9 +9,10 @@ class MarkExchangeRateRequestAsFailed
   end
 
   def call
-      @exchange_rate_request.update!(
-        status: :completed,
-        failure_reason: @failure_reason
-      )
+    Rails.logger.error("Processing exchange rate request failed with reason: #{@failure_reason}")
+    @exchange_rate_request.update!(
+      status: :completed,
+      failure_reason: @failure_reason
+    )
   end
 end

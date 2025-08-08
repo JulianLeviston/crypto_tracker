@@ -1,13 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  currency_exchange_type: one
+  currency_exchange_type: btcaud
   exchange_rate: one
   failure_reason: MyString
   status: 1
 
 two:
-  currency_exchange_type: two
+  currency_exchange_type: ethaud
   exchange_rate: two
   failure_reason: MyString
   status: 1

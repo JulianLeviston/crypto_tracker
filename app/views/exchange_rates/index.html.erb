@@ -1,5 +1,11 @@
 <h1>Current Exchange Rates</h1>
 
+<% flash.each do |key, message| %>
+  <div class="flash <%= key %>">
+    <%= message %>
+  </div>
+<% end %>
+
 <p>
   <%= button_to "Fetch Exchange Rates", { action: "fetch" }, method: "get" %>
   <%= button_to "Fetch Exchange Rates Concurrently", { action: "concurrent_fetch" }, method: "get" %>

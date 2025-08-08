@@ -1,13 +1,22 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  currency_exchange_type: one
-  last_price: 9.99
-  bid_price: 9.99
-  ask_price: 9.99
+  currency_exchange_type: ethaud
+  created_at: 2024-01-01 10:00:00
+  last_price: 19.99
+  bid_price: 15.99
+  ask_price: 24.99
 
 two:
-  currency_exchange_type: two
-  last_price: 9.99
-  bid_price: 9.99
+  currency_exchange_type: btcaud
+  created_at: 2023-01-02 10:00:00
+  last_price: 1.99
+  bid_price: 5.99
   ask_price: 9.99
+
+three:
+  currency_exchange_type: ethaud
+  created_at: 2024-01-03 10:00:00
+  last_price: 19.98
+  bid_price: 15.98
+  ask_price: 24.98

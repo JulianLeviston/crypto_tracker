@@ -7,17 +7,7 @@ class ExchangeRatesController < ApplicationController
   def history
     @from_code = params[:from_currency_code]
     @to_code = params[:to_currency_code]
-    @exchange_rates = ExchangeRate
-      # manual joins because aliasing wasn't working when using AR joins
-      .joins(:currency_exchange_type)
-      .joins(
-        "INNER JOIN currencies AS from_currencies ON from_currencies.id = currency_exchange_types.from_currency_id"
-      )
-      .joins(
-        "INNER JOIN currencies AS to_currencies ON to_currencies.id = currency_exchange_types.to_currency_id"
-      )
-      .where(from_currencies: { code: @from_code }, to_currencies: { code: @to_code })
-      .order(created_at: :desc)
+    @exchange_rates = ExchangeRate.for_codes(@from_code, @to_code)
   end
 
   def fetch
@@ -25,9 +15,13 @@ class ExchangeRatesController < ApplicationController
     # Making this async (via jobs) is fairly easy because it's been modularly designed.
     # This is sequential & blocking for simplicity. Would be good to address max concurrency (rate limiting)
     # on the APIs in a more complete solution, but out of scope for here.
-    CurrencyExchangeType.all.each do |currency_exchange_type|
-      fetch_for_currency_exchange_type(currency_exchange_type)
+    exchange_rate_requests = CurrencyExchangeType.all.map do |currency_exchange_type|
+      create_and_process_request_for_currency_exchange_type(currency_exchange_type)
     end
+
+    # collect any failure messages into the flash message
+    error_message = exchange_rate_requests.map(&:failure_reason).join(", ")
+    flash[:error] = error_message if !error_message.blank?
 
     redirect_to action: :index
   end
@@ -39,9 +33,10 @@ class ExchangeRatesController < ApplicationController
     # max concurrency specificity, and to show progress in the UI,
     # but this just makes small sets of fetches a little faster and nicer
     # for manual testing the prototype, in an easy way.
+    # Note that errors are not currently handled in the UI for this, only in the logger.
     threads = CurrencyExchangeType.all.map do |currency_exchange_type|
       Thread.new do
-        fetch_for_currency_exchange_type(currency_exchange_type)
+        create_and_process_request_for_currency_exchange_type(currency_exchange_type)
       end
     end
     # wait for all threads to finish
@@ -51,8 +46,9 @@ class ExchangeRatesController < ApplicationController
   end
 
   private
-  def fetch_for_currency_exchange_type(currency_exchange_type)
+  def create_and_process_request_for_currency_exchange_type(currency_exchange_type)
     exchange_rate_request = ExchangeRateRequest.create(currency_exchange_type: currency_exchange_type)
     ProcessExchangeRateRequest.new(exchange_rate_request).call
+    exchange_rate_request
   end
 end

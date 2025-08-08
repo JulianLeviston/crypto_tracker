@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  from_currency: one
-  to_currency: one
-  exchange_rate_url: MyString
+btcaud:
+  from_currency: btc
+  to_currency: aud
+  exchange_rate_url: "https://data.exchange.coinjar.com/products/BTCAUD/ticker"
 
-two:
-  from_currency: two
-  to_currency: two
-  exchange_rate_url: MyString
+ethaud:
+  from_currency: eth
+  to_currency: aud
+  exchange_rate_url: "https://data.exchange.coinjar.com/products/ETHAUD/ticker"
