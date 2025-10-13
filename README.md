@@ -1,6 +1,6 @@
 # README for CryptoTracker
 
-CryptoTracker is my (Julian Leviston) submission for a code challenge by CoinJar.
+CryptoTracker is my (Julian Leviston) submission for a code challenge by CoinJar. Note: it's purposefully over-engineered; the main idea being to demonstrate architectural patterns useful in larger apps, especially illustrating how much easier changes become when thoughtful domain modelling is present.
 
 ## Where to start
 
