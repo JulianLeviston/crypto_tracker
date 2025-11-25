@@ -20,8 +20,14 @@ class ExchangeRatesController < ApplicationController
     end
 
     # collect any failure messages into the flash message
-    error_message = exchange_rate_requests.map(&:failure_reason).join(", ")
-    flash[:error] = error_message if !error_message.blank?
+    error_message = prepare_error_message(exchange_rate_requests)
+
+    if error_message.blank?
+      pretty_time_now = Time.now.in_time_zone.strftime("%B %d, %Y %I:%M.%S %p")
+      flash[:message] = "Successfully fetched at #{pretty_time_now}"
+    else
+      flash[:error] = error_message
+    end
 
     redirect_to action: :index
   end
@@ -50,5 +56,12 @@ class ExchangeRatesController < ApplicationController
     exchange_rate_request = ExchangeRateRequest.create(currency_exchange_type: currency_exchange_type)
     ProcessExchangeRateRequest.new(exchange_rate_request).call
     exchange_rate_request
+  end
+
+  def prepare_error_message(exchange_rate_requests)
+    exchange_rate_requests.
+      map(&:failure_reason).
+      filter { |reason| !reason.blank? }.
+      join(", ")
   end
 end
